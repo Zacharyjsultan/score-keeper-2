@@ -18,7 +18,7 @@ const teamTwoInput = document.getElementById('team-two-input');
 const pastGames = [];
 
 let name1 = '';
-let name2 =  '';
+let name2 = '';
 let score1 = 0;
 let score2 = 0;
 
@@ -37,50 +37,51 @@ nameFormButton.addEventListener('click', () => {
 
 
 teamOneAddButton.addEventListener('click', () => {
-  
+   
     score1++;
-    // refresh the current game element with new data by calling the appropriate function
+
     displayCurrentGameEl();
 });
 
 teamTwoAddButton.addEventListener('click', () => {
-    // increment the current state for team two's score
+  
     score2++;
-    // refresh the current game element with new data by calling the appropriate function
+  
     displayCurrentGameEl();
 });
 
 teamOneSubtractButton.addEventListener('click', () => {
-    // decrement the current state for team one's score
+  
     score1--;
-    // refresh the current game element with new data by calling the appropriate function
+   
     displayCurrentGameEl();
 });
 
 teamTwoSubtractButton.addEventListener('click', () => {
-    // decrement the current state for team two's score
+  
     score2--;
-    // refresh the current game element with new data by calling the appropriate function
+  
     displayCurrentGameEl();
 });
 
 finishGameButton.addEventListener('click', () => {
     
-    // add the current game to an array of games in state
+    const currentGameData = {
+        name1: name1,
+        name2: name2,
+        score1: score1,
+        score2: score2,
+    };
+    pastGames.push(currentGameData);
+    pastGamesEl.textContent = '';
 
-    for (let game of pastGames) {
-        
-    }
-    // it will be helpful to keep track of these games as objects with 4 properties, one for each piece of state we're tracking
-    // for example, make an object like this: { name1: 'ducks', name2: 'bears' ,score1: 1, score2: 2 } 
-    // then push it to your array in state
-    // (be sure to make a new object. do not declare the object in global scope and mutate it for reuse. This would cause difficult bugs)
-    
+   
     displayAllGames();
-
-    // reset the state to zero and empty strings
-    
-    // refresh the current game element with new data by calling the appropriate function
+    name1 = '';
+    name2 = '';
+    score1 = 0;
+    score2 = 0;
+    currentGameEl.textContent = '';
     displayCurrentGameEl();
 });
 
@@ -104,8 +105,12 @@ function displayCurrentGameEl() {
 
 function displayAllGames() {
     // clear out the past games list in the DOM
-
+    pastGamesEl.textContent = '';
     // loop through the past games in state
+    for (let game of pastGames) {
+        const gameEl = renderGame(game.name1, game.name2, game.score1, game, score2);
+        pastGamesEl.append(gameEl);
+    }
     // use the renderGame function to render and append a past game for each past game in state
-    // again, review the renderGame function in render-utils.js. How many arguments does it take? What order does it take them in?
+ 
 }
